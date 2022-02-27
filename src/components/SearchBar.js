@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
-export default class SearchBar extends Component {
-  
-  state={term:''}
+const SearchBar = ({onSearchSubmit})=>{
 
-  onFormSubmit = event =>{
+  const [term,setTerm] = useState('');
+
+  const onFormSubmit = event =>{
     event.preventDefault();
-    this.props.onSearchSubmit(this.state.term);
+    onSearchSubmit(term);
   }
+
   
-  render() {
     return (
       <div className="ui segment">
-        <form className="ui form" onSubmit={this.onFormSubmit}>
+        <form className="ui form" onSubmit={onFormSubmit}>
           <div className="ui fluid action input">
             <input type="text" placeholder="Search videos here"
-            value={this.state.term}
-            onChange={e=>this.setState({term:e.target.value})} />
+            value={term}
+            onChange={e=>setTerm(e.target.value)} />
             <button className="ui right labeled icon button" type="submit" >
               <i className="search icon"></i>
               Search
@@ -26,4 +26,6 @@ export default class SearchBar extends Component {
       </div>
     );
   }
-}
+
+
+export default  SearchBar ;
